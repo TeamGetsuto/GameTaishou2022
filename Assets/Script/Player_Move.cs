@@ -131,6 +131,7 @@ public class Player_Move : MonoBehaviour
         }
         else
         {
+            Debug.Log("Check OF Ground is 0");
             moveDirection.y = 0;
             isGravity = false;
         }
