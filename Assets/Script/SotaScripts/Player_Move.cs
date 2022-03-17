@@ -20,6 +20,12 @@ public class Player_Move : MonoBehaviour
     public Ground_Check ground;
     bool isGravity = true;
 
+    [Header("接地判定")]
+    [SerializeField] float offsetX;
+    [SerializeField] float offsetY;
+    [SerializeField] float rayDist;
+    [SerializeField] LayerMask layer;
+
     //移動
     [SerializeField] float walkSpeed;
     [SerializeField] Vector2 moveDirection;
@@ -107,6 +113,8 @@ public class Player_Move : MonoBehaviour
         {
             Gravity();
         }
+
+        GroundChecker();
     }
 
     void Jump()
@@ -160,5 +168,16 @@ public class Player_Move : MonoBehaviour
     {
         yield return new WaitForSeconds(jointWaitTime);
         jointTrriger = false;
+    }
+
+    //----------------------------------------------
+   
+    void GroundChecker()
+    {
+        bool isGround = GroundCheck.grCheck.IsGroundHit(rigid.position, offsetX, offsetY, rayDist, layer);
+
+        Debug.Log(isGround);
+        if (isGround) { Debug.Log("地面を確認"); }
+        else { Debug.Log("地面に触れていません"); }
     }
 }
